@@ -20,11 +20,10 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"size",
 						"columnCount",
-						"itemName",
-						"itemType",
-						"lastModified"
+						"exists",
+						"size",
+						"itemName"
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
@@ -35,29 +34,10 @@
 						"type": "DelimitedTextReadSettings"
 					}
 				}
-			},
-			{
-				"name": "If Condition1",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Get Metadata1",
-						"dependencyConditions": [
-							"Completed"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@equals(formatDateTime(utcnow(),'yyyy-MM-dd'),formatDateTime(activity('Get Metadata1').output.lastModified,'yyyy-MM-dd'))",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2023-10-05T04:22:01Z"
+		"lastPublishTime": "2023-10-04T10:20:04Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

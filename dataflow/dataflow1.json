@@ -26,13 +26,10 @@
 					"name": "derivedColumn1"
 				},
 				{
-					"name": "surrogateKey1"
-				},
-				{
-					"name": "select1"
-				},
-				{
 					"name": "sort1"
+				},
+				{
+					"name": "surrogateKey1"
 				}
 			],
 			"scriptLines": [
@@ -54,36 +51,18 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 derive({fuel efficiency} = {Fuel Consumption Comb (L/100 km)}/{CO2 Emissions(g/km)}) ~> derivedColumn1",
-				"derivedColumn1 keyGenerate(output({Serial Number} as long),",
+				"derivedColumn1 sort(asc({CO2 Emissions(g/km)}, true)) ~> sort1",
+				"sort1 keyGenerate(output({Serial Number} as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
-				"surrogateKey1 select(mapColumn(",
-				"          Brand = Make,",
-				"          Model,",
-				"          {Vehicle Class},",
-				"          {Engine Size(L)},",
-				"          Cylinders,",
-				"          Transmission,",
-				"          {Fuel Type},",
-				"          {Fuel Consumption City (L/100 km)},",
-				"          {Fuel Consumption Hwy (L/100 km)},",
-				"          {Fuel Consumption Comb (L/100 km)},",
-				"          {Fuel Consumption Comb (mpg)},",
-				"          {CO2 Emissions(g/km)},",
-				"          {fuel efficiency},",
-				"          {Serial Number}",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 sort(desc({CO2 Emissions(g/km)}, true)) ~> sort1",
-				"sort1 sink(allowSchemaDrift: true,",
+				"surrogateKey1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     partitionBy('roundRobin', 2)) ~> sink1"
 			]
 		}
 	}

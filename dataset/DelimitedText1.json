@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "CO2 Emissions_Canada (1).csv",
+				"fileName": "CO2 Emissions_Canada.csv",
 				"container": "2023"
 			},
 			"columnDelimiter": ",",
