@@ -1,0 +1,90 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "sort1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Make as string,",
+				"          Model as string,",
+				"          {Vehicle Class} as string,",
+				"          {Engine Size(L)} as float,",
+				"          Cylinders as integer,",
+				"          Transmission as string,",
+				"          {Fuel Type} as string,",
+				"          {Fuel Consumption City (L/100 km)} as float,",
+				"          {Fuel Consumption Hwy (L/100 km)} as float,",
+				"          {Fuel Consumption Comb (L/100 km)} as float,",
+				"          {Fuel Consumption Comb (mpg)} as float,",
+				"          {CO2 Emissions(g/km)} as float",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive({fuel efficiency} = {Fuel Consumption Comb (L/100 km)}/{CO2 Emissions(g/km)}) ~> derivedColumn1",
+				"derivedColumn1 keyGenerate(output({Serial Number} as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 select(mapColumn(",
+				"          Brand = Make,",
+				"          Model,",
+				"          {Vehicle Class},",
+				"          {Engine Size(L)},",
+				"          Cylinders,",
+				"          Transmission,",
+				"          {Fuel Type},",
+				"          {Fuel Consumption City (L/100 km)},",
+				"          {Fuel Consumption Hwy (L/100 km)},",
+				"          {Fuel Consumption Comb (L/100 km)},",
+				"          {Fuel Consumption Comb (mpg)},",
+				"          {CO2 Emissions(g/km)},",
+				"          {fuel efficiency},",
+				"          {Serial Number}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sort(desc({CO2 Emissions(g/km)}, true)) ~> sort1",
+				"sort1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

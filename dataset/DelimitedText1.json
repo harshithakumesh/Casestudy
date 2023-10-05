@@ -1,0 +1,73 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CO2 Emissions_Canada (1).csv",
+				"container": "2023"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Make",
+				"type": "String"
+			},
+			{
+				"name": "Model",
+				"type": "String"
+			},
+			{
+				"name": "Vehicle Class",
+				"type": "String"
+			},
+			{
+				"name": "Engine Size(L)",
+				"type": "String"
+			},
+			{
+				"name": "Cylinders",
+				"type": "String"
+			},
+			{
+				"name": "Transmission",
+				"type": "String"
+			},
+			{
+				"name": "Fuel Type",
+				"type": "String"
+			},
+			{
+				"name": "Fuel Consumption City (L/100 km)",
+				"type": "String"
+			},
+			{
+				"name": "Fuel Consumption Hwy (L/100 km)",
+				"type": "String"
+			},
+			{
+				"name": "Fuel Consumption Comb (L/100 km)",
+				"type": "String"
+			},
+			{
+				"name": "Fuel Consumption Comb (mpg)",
+				"type": "String"
+			},
+			{
+				"name": "CO2 Emissions(g/km)",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

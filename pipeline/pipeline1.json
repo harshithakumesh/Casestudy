@@ -1,0 +1,240 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Make",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Make",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Model",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Model",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Vehicle Class",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Vehicle Class",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Engine Size(L)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Engine Size(L)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Cylinders",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Cylinders",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Transmission",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Transmission",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Fuel Type",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Fuel Type",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Fuel Consumption City (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Fuel Consumption City (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Fuel Consumption Hwy (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Fuel Consumption Hwy (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Fuel Consumption Comb (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Fuel Consumption Comb (L/100 km)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Fuel Consumption Comb (mpg)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Fuel Consumption Comb (mpg)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CO2 Emissions(g/km)",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CO2 Emissions(g/km)",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-10-05T07:09:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

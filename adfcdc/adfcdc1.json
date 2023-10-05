@@ -1,0 +1,228 @@
+{
+	"name": "adfcdc1",
+	"properties": {
+		"SourceConnectionsInfo": [
+			{
+				"SourceEntities": [
+					{
+						"name": "2023",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "container",
+									"value": "2023"
+								},
+								{
+									"name": "fileSystem",
+									"value": "2023"
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureBlobStorage",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "delimited"
+						},
+						{
+							"name": "dateFormats",
+							"value": [
+								"MM/dd/yyyy",
+								"dd/MM/yyyy",
+								"yyyy/MM/dd",
+								"MM-dd-yyyy",
+								"dd-MM-yyyy",
+								"yyyy-MM-dd",
+								"dd.MM.yyyy",
+								"MM.dd.yyyy",
+								"yyyy.MM.dd"
+							]
+						},
+						{
+							"name": "timestampFormats",
+							"value": [
+								"yyyyMMddHHmm",
+								"yyyyMMdd HHmm",
+								"yyyyMMddHHmmss",
+								"yyyyMMdd HHmmss",
+								"dd-MM-yyyy HH:mm:ss",
+								"dd-MM-yyyy HH:mm",
+								"yyyy-M-d H:m:s",
+								"yyyy-MM-dd\\'T\\'HH:mm:ss\\'Z\\'",
+								"yyyy-M-d\\'T\\'H:m:s\\'Z\\'",
+								"yyyy-M-d\\'T\\'H:m:s",
+								"yyyy-MM-dd\\'T\\'HH:mm:ss",
+								"yyyy-MM-dd HH:mm:ss",
+								"yyyy-MM-dd HH:mm",
+								"yyyy.MM.dd HH:mm:ss",
+								"MM/dd/yyyy HH:mm:ss",
+								"M/d/yyyy H:m:s",
+								"yyyy/MM/dd HH:mm:ss",
+								"yyyy/M/d H:m:s",
+								"dd MMM yyyy HH:mm:ss",
+								"dd MMMM yyyy HH:mm:ss",
+								"d MMM yyyy H:m:s",
+								"d MMMM yyyy H:m:s",
+								"d-M-yyyy H:m:s",
+								"d-M-yyyy H:m",
+								"yyyy-M-d H:m",
+								"MM/dd/yyyy HH:mm",
+								"M/d/yyyy H:m",
+								"yyyy/MM/dd HH:mm",
+								"yyyy/M/d H:m",
+								"dd MMMM yyyy HH:mm",
+								"dd MMM yyyy HH:mm",
+								"d MMMM yyyy H:m",
+								"d MMM yyyy H:m",
+								"MM-dd-yyyy hh:mm:ss a",
+								"MM-dd-yyyy HH:mm:ss",
+								"MM/dd/yyyy hh:mm:ss a",
+								"yyyy.MM.dd hh:mm:ss a",
+								"MM/dd/yyyy",
+								"dd/MM/yyyy",
+								"yyyy/MM/dd",
+								"MM-dd-yyyy",
+								"dd-MM-yyyy",
+								"yyyy-MM-dd",
+								"dd.MM.yyyy",
+								"MM.dd.yyyy",
+								"yyyy.MM.dd"
+							]
+						},
+						{
+							"name": "enableCdc",
+							"value": true
+						},
+						{
+							"name": "skipInitialLoad",
+							"value": true
+						},
+						{
+							"name": "columnNamesAsHeader",
+							"value": true
+						},
+						{
+							"name": "columnDelimiter",
+							"value": ","
+						},
+						{
+							"name": "quoteChar",
+							"value": "\\\""
+						},
+						{
+							"name": "escapeChar",
+							"value": "\\\\"
+						}
+					]
+				}
+			}
+		],
+		"TargetConnectionsInfo": [
+			{
+				"TargetEntities": [
+					{
+						"name": "tgt/2023",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "container",
+									"value": "tgt"
+								},
+								{
+									"name": "fileSystem",
+									"value": "tgt"
+								},
+								{
+									"name": "folderPath",
+									"value": "2023"
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureBlobFS",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "delimited"
+						},
+						{
+							"name": "columnNamesAsHeader",
+							"value": true
+						},
+						{
+							"name": "columnDelimiter",
+							"value": ","
+						},
+						{
+							"name": "escapeChar",
+							"value": "\\\\"
+						},
+						{
+							"name": "quoteChar",
+							"value": "\\\""
+						}
+					]
+				},
+				"DataMapperMappings": [
+					{
+						"targetEntityName": "tgt/2023",
+						"sourceEntityName": "2023",
+						"sourceConnectionReference": {
+							"connectionName": "AzureBlobStorage1",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					}
+				],
+				"Relationships": []
+			}
+		],
+		"Policy": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15
+			},
+			"mode": "Microbatch"
+		},
+		"status": "PipelineRunCreated",
+		"allowVNetOverride": false,
+		"id": "d1d7816ff5394cb68400c9ddcce8a62b"
+	}
+}

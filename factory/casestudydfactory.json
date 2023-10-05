@@ -1,0 +1,9 @@
+{
+	"name": "casestudydfactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "55403989-8652-417e-8cc4-8cc605b589b2",
+		"tenantId": "dce87315-8ffa-4a01-ab40-0de5a7214b2f"
+	}
+}
