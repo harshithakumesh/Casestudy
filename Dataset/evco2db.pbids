@@ -1,0 +1,1 @@
+{"version":"1.0","connections":[{"details":{"protocol":"tds","address":{"server":"evco2server.database.windows.net","database":"evco2db"}},"mode":"DirectQuery"}]}
